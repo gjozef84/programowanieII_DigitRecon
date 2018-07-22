@@ -14,16 +14,16 @@ import java.util.stream.Collectors;
 public class Classifier {
     public static void main(String[] args) {
         List<String> list = fileRead("trainingsample.csv");
-        List<Digit> columns = list.subList(1,list.size())
+        List<Digit> columns = list.subList(1, list.size())
                 .stream()
-                .map(x->x.split(","))
-                .map(z->{
-                      return Arrays.stream(z)
-                              .map(y->Integer.parseInt(y))
-                              .collect(Collectors.toList());
+                .map(x -> x.split(","))
+                .map(z -> {
+                    return Arrays.stream(z)
+                            .map(y -> Integer.parseInt(y))
+                            .collect(Collectors.toList());
                 })
                 .map(x -> {
-                    Digit digit = new Digit(String.valueOf(x.get(0)),x.subList(1,x.size()));
+                    Digit digit = new Digit(String.valueOf(x.get(0)), x.subList(1, x.size()));
                     return digit;
                 })
                 .collect(Collectors.toList());
@@ -44,10 +44,12 @@ public class Classifier {
 
         return list;
     }
-    /*public static int distance(Digit a, Digit b){
-        for (int i = 0 ;i <a.)
-        return 0;
 
-        sqrt((a0-b0)^2+....)
-    }*/
+    public static double distance(Digit a, Digit b) {
+        double sum = 0;
+        for (int i = 0; i < a.getDigit().size(); i++) {
+            sum += (b.getDigit().get(i) - a.getDigit().get(i)) * (b.getDigit().get(i) - a.getDigit().get(i));
+        }
+        return Math.sqrt(sum);
+    }
 }
