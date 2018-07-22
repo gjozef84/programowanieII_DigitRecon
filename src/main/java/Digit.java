@@ -12,5 +12,14 @@ import java.util.List;
 @Getter
 @Setter
 public class Digit {
+    private String name;
     private List<Integer> digit;
+
+    @Override
+    public String toString() {
+        return "Digit{" +
+                "name='" + name + '\'' +
+                ", digit=" + digit +
+                '}';
+    }
 }

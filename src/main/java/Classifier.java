@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -22,13 +23,13 @@ public class Classifier {
                               .collect(Collectors.toList());
                 })
                 .map(x -> {
-                    Digit digit = new Digit(x);
+                    Digit digit = new Digit(String.valueOf(x.get(0)),x.subList(1,x.size()));
                     return digit;
                 })
                 .collect(Collectors.toList());
 
 
-        System.out.println(columns);
+        System.out.println(columns.get(0));
     }
 
 
@@ -43,4 +44,10 @@ public class Classifier {
 
         return list;
     }
+    /*public static int distance(Digit a, Digit b){
+        for (int i = 0 ;i <a.)
+        return 0;
+
+        sqrt((a0-b0)^2+....)
+    }*/
 }
