@@ -1,6 +1,7 @@
 Napiszemy program rozpoznający cyfry napisane ręcznie.
 Napiszemy coś co nazywa się klasyfikatorem (ang. Classifier)
 Nasz klasyfikator dostanie na wejście obrazek liczby zapisanej ręczniej i zwróci nam int mówiącego co to za liczba.
+
 Rozwiązujemy zadanie w parach, jedna osoba realizuje podpunkt, git commit i przekazuje klawiature.
 Polecam otworzyć 2 projekty w IntelliJ - jeden na właściwe zadanie, jeden do bazgrania
 Trochę jak w TDD rozwiązujemy każdy punkt osobno ale tym razem nie piszemy testów jednostkowych.
