@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class Classifier {
     public static void main(String[] args) {
         List<String> list = fileRead("trainingsample.csv");
-        List<List<Integer>> columns = list.subList(1,list.size())
+        List<Digit> columns = list.subList(1,list.size())
                 .stream()
                 .map(x->x.split(","))
                 .map(z->{
@@ -21,7 +21,13 @@ public class Classifier {
                               .map(y->Integer.parseInt(y))
                               .collect(Collectors.toList());
                 })
+                .map(x -> {
+                    Digit digit = new Digit(x);
+                    return digit;
+                })
                 .collect(Collectors.toList());
+
+
         System.out.println(columns);
     }
 
