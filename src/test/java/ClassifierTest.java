@@ -10,9 +10,9 @@ import static org.junit.Assert.*;
  */
 public class ClassifierTest {
     ArrayList<Integer> aPoint = new ArrayList<>();
-    Digit a = new Digit("a", aPoint);
+    Digit a = new Digit(1, aPoint);
     ArrayList<Integer> bPoint = new ArrayList<>();
-    Digit b = new Digit("b", bPoint);
+    Digit b = new Digit(2, bPoint);
 
     @Before
     public void setup() {

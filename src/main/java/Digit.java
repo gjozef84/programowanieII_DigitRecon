@@ -12,13 +12,13 @@ import java.util.List;
 @Getter
 @Setter
 public class Digit {
-    private String name;
+    private int label;
     private List<Integer> digit;
 
     @Override
     public String toString() {
         return "Digit{" +
-                "name='" + name + '\'' +
+                "label='" + label + '\'' +
                 ", digit=" + digit +
                 '}';
     }

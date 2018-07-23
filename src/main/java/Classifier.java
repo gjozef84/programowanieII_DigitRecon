@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -14,7 +15,17 @@ import java.util.stream.Collectors;
 public class Classifier {
     public static void main(String[] args) {
         List<String> list = fileRead("trainingsample.csv");
-        List<Digit> columns = list.subList(1, list.size())
+        List<Digit> columns = getDigits(list);
+
+        List<String> toVaild = fileRead("validationsample.csv");
+        List<Digit> toValidDigits = getDigits(list);
+
+        System.out.println(predict(toValidDigits, columns));
+        System.out.println("\nEND\n");
+    }
+
+    private static List<Digit> getDigits(List<String> list) {
+        return list.subList(1, list.size())
                 .stream()
                 .map(x -> x.split(","))
                 .map(z -> {
@@ -23,13 +34,10 @@ public class Classifier {
                             .collect(Collectors.toList());
                 })
                 .map(x -> {
-                    Digit digit = new Digit(String.valueOf(x.get(0)), x.subList(1, x.size()));
+                    Digit digit = new Digit(x.get(0), x.subList(1, x.size()));
                     return digit;
                 })
                 .collect(Collectors.toList());
-
-
-        System.out.println(columns.get(0));
     }
 
 
@@ -50,8 +58,24 @@ public class Classifier {
         for (int i = 0; i < a.getDigit().size(); i++) {
             sum += (b.getDigit().get(i) - a.getDigit().get(i)) * (b.getDigit().get(i) - a.getDigit().get(i));
         }
-        double result = Math.sqrt(sum);
-        System.out.println("result: " + result);
-        return result;
+        return Math.sqrt(sum);
+
+    }
+
+    public static int predict(List<Digit> validationsample, List<Digit> trainingsample) { //returns accuracy of number recognition
+        int count = 0;
+        for (Digit input : validationsample) {
+            List<Record> records = trainingsample.stream()
+                    .map(x -> {
+                        Record record = new Record(x, distance(input, x));
+                        return record;
+                    })
+                    .sorted(Comparator.comparingDouble(x -> x.getDistnce()))
+                    .collect(Collectors.toList());
+            System.out.print(".");
+            if (records.get(0).getDigit().getLabel() == input.getLabel())
+                count++;
+        }
+        return count / validationsample.size();
     }
 }
