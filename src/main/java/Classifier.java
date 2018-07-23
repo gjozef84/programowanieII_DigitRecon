@@ -50,6 +50,8 @@ public class Classifier {
         for (int i = 0; i < a.getDigit().size(); i++) {
             sum += (b.getDigit().get(i) - a.getDigit().get(i)) * (b.getDigit().get(i) - a.getDigit().get(i));
         }
-        return Math.sqrt(sum);
+        double result = Math.sqrt(sum);
+        System.out.println("result: " + result);
+        return result;
     }
 }
