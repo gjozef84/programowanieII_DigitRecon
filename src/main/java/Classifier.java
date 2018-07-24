@@ -37,6 +37,7 @@ public class Classifier {
                     return digit;
                 })
                 .collect(Collectors.toList());
+
     }
 
 
@@ -58,7 +59,6 @@ public class Classifier {
             sum += (b.getDigit().get(i) - a.getDigit().get(i)) * (b.getDigit().get(i) - a.getDigit().get(i));
         }
         return Math.sqrt(sum);
-
     }
 
     public static double predict(List<Digit> validationsample, List<Digit> trainingsample) { //returns accuracy of number recognition
@@ -66,12 +66,12 @@ public class Classifier {
         for (Digit input : validationsample) {
             List<Record> records = trainingsample.stream()
                     .map(x -> {
-                        Record record = new Record(x, distance(input, x));
+                        Record record = new Record(x.getLabel(), distance(input, x));
                         return record;
                     })
-                    .sorted(Comparator.comparingDouble(y -> y.getDistnce()))
+                    .sorted(Comparator.comparingDouble(y -> y.getDistance()))
                     .collect(Collectors.toList());
-            if (records.get(0).getDigit().getLabel() == input.getLabel())
+            if (records.get(0).getLabel() == input.getLabel())
                 count++;
         }
 
