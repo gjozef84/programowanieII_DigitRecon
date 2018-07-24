@@ -14,14 +14,13 @@ import java.util.stream.Collectors;
  */
 public class Classifier {
     public static void main(String[] args) {
-        List<String> list = fileRead("trainingsample.csv");
-        List<Digit> columns = getDigits(list);
+        List<String> trainingsamples = fileRead("trainingsample.csv");
+        List<Digit> toTrainingDigits = getDigits(trainingsamples);
 
         List<String> toVaild = fileRead("validationsample.csv");
-        List<Digit> toValidDigits = getDigits(list);
+        List<Digit> toValidDigits = getDigits(toVaild);
 
-        System.out.println(predict(toValidDigits, columns));
-        System.out.println("\nEND\n");
+        System.out.println("Accurancy: " + predict(toValidDigits, toTrainingDigits) + " %");
     }
 
     private static List<Digit> getDigits(List<String> list) {
@@ -62,20 +61,20 @@ public class Classifier {
 
     }
 
-    public static int predict(List<Digit> validationsample, List<Digit> trainingsample) { //returns accuracy of number recognition
-        int count = 0;
+    public static double predict(List<Digit> validationsample, List<Digit> trainingsample) { //returns accuracy of number recognition
+        double count = 0;
         for (Digit input : validationsample) {
             List<Record> records = trainingsample.stream()
                     .map(x -> {
                         Record record = new Record(x, distance(input, x));
                         return record;
                     })
-                    .sorted(Comparator.comparingDouble(x -> x.getDistnce()))
+                    .sorted(Comparator.comparingDouble(y -> y.getDistnce()))
                     .collect(Collectors.toList());
-            System.out.print(".");
             if (records.get(0).getDigit().getLabel() == input.getLabel())
                 count++;
         }
-        return count / validationsample.size();
+
+        return (count / validationsample.size()) * 100;
     }
 }
