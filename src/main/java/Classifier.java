@@ -14,18 +14,20 @@ import java.util.stream.Collectors;
  */
 public class Classifier {
     public static void main(String[] args) {
+        long startTime = System.nanoTime();
         List<String> trainingsamples = fileRead("trainingsample.csv");
         List<Digit> toTrainingDigits = getDigits(trainingsamples);
-
         List<String> toVaild = fileRead("validationsample.csv");
         List<Digit> toValidDigits = getDigits(toVaild);
 
         System.out.println("Accurancy: " + predict(toValidDigits, toTrainingDigits) + " %");
+        long estimatedTime = System.nanoTime() - startTime;
+        System.out.println("Czas wykonania programu " + estimatedTime/1000000000 + "s");
     }
 
     private static List<Digit> getDigits(List<String> list) {
         return list.subList(1, list.size())
-                .stream()
+                .parallelStream()
                 .map(x -> x.split(","))
                 .map(z -> {
                     return Arrays.stream(z)
@@ -64,7 +66,7 @@ public class Classifier {
     public static double predict(List<Digit> validationsample, List<Digit> trainingsample) { //returns accuracy of number recognition
         double count = 0;
         for (Digit input : validationsample) {
-            List<Record> records = trainingsample.stream()
+            List<Record> records = trainingsample.parallelStream()
                     .map(x -> {
                         Record record = new Record(x.getLabel(), distance(input, x));
                         return record;

@@ -5,6 +5,7 @@ Nasz klasyfikator dostanie na wejście obrazek liczby zapisanej ręczniej i zwr�
 Rozwiązujemy zadanie w parach, jedna osoba realizuje podpunkt, git commit i przekazuje klawiature.
 Polecam otworzyć 2 projekty w IntelliJ - jeden na właściwe zadanie, jeden do bazgrania
 Trochę jak w TDD rozwiązujemy każdy punkt osobno ale tym razem nie piszemy testów jednostkowych.
+
 Sekcje zawierają podpowiedzi co warto użyć.
 0. Przygotowanie
     Nowy projekt w IntelliJ
@@ -110,12 +111,16 @@ public static int distance(Integer[] a, Integer[] b) {
 Teraz napiszemy funkcję klasyfikatora,
 czyli funkcję której podamy rysunek a funkcja powie nam co ten rysunke przedstawia.
 Wejściem do naszej funkcji będzie tablica pikseli oraz zestaw danych z pliku trainingsample.csv.
-Funkcja porówna obrazek składający się z pikseli z każdym obrazkiem z naszych dancyh testowych. Nastepnie powie nam który obrazek z danych testowych jest najpodobniejszy naszemu nowem obrazkowi.
+Funkcja porówna obrazek składający się z pikseli z każdym obrazkiem z naszych dancyh testowych. Nastepnie powie nam który obrazek z danych
+testowych jest najpodobniejszy naszemu nowem obrazkowi.
 Czyli który obrazek z danych testowych jest najbliższy.
 Przykład:
-jeżeli podany naszej funkcji na wejściu jakieś gryzmoły i funkcja stwierdzi że te gryzmoły najbardziej przypominają obrazek przedstawiający cyfrę 8 to uznamy że gryzmoły przedstawiają własnie cyfrę 8.
+jeżeli podany naszej funkcji na wejściu jakieś gryzmoły i funkcja stwierdzi że te gryzmoły najbardziej przypominają obrazek przedstawiający
+cyfrę 8 to uznamy że gryzmoły przedstawiają własnie cyfrę 8.
 chcemy napisać funkcję:
 public static int predict(Integer[] pixels, Record[] sampleRecords)
+
+
 Podpowiedź:
 1. napisz małą klasę która będzie przechowywała 2 pola:
     dystans i liczbę.
